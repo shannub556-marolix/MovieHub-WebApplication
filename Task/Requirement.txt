@@ -1,0 +1,55 @@
+
+Aishwarya Surendran
+Task: Create a responsive web application that displays a list of movies and allows users to search and filter movies by title, genre, and release year. The application should have a visually appealing design and provide a smooth user experience.
+
+Requirements:
+1. Set up a new project using a front-end build tool like Webpack or Parcel.    done
+2. Create an HTML file with a semantic structure, including header, main, and footer sections.  done
+3. Use CSS or Sass to style the application, ensuring a consistent and visually appealing design across different screen sizes. done
+4. Implement a responsive layout using CSS Flexbox or Grid, adapting to different screen sizes (desktop, tablet, mobile). done
+5. Fetch movie data from a provided JSON file or a mock API endpoint using JavaScript's Fetch API or Axios library.   done
+6. Display the list of movies in a grid or list format, showing the movie poster, title, genre, and release year.  done
+7. Implement a search functionality that allows users to search for movies by title. Update the displayed movies in real-time as the user types.  
+8. Add filtering options to allow users to filter movies by genre and release year. Use dropdown menus or checkboxes for filtering.  done
+9. Implement pagination or infinite scrolling to load movies in smaller chunks, improving performance and user experience. done 
+10. Create a movie details modal or page that displays more information about a selected movie, such as plot summary, cast, and ratings.  done
+11. Optimize the application's performance by lazy-loading images and implementing caching techniques.  done
+12. Ensure cross-browser compatibility by testing the application on different browsers and devices. done
+13. Implement error handling for failed API requests and display user-friendly error messages.   done
+14. Write unit tests for at least two components or functions using a testing framework like Jest or Mocha.  Done(Jest)
+15. Document the code using JSDoc or similar conventions, providing clear explanations of functions, parameters, and return values. done
+16. Create a README file with instructions on how to build, run, and test the application.  done
+
+Bonus Points:
+- Implement a dark mode toggle using CSS custom properties (variables).  done
+- Use a CSS animation library like Animate.css or GreenSock to add subtle animations to UI elements. done
+- Implement accessibility features, such as keyboard navigation and ARIA attributes, to ensure the application is usable by people with disabilities.
+- Use a state management library like Redux or MobX to manage the application's state.
+- Implement client-side routing using a library like React Router or Vue Router.
+
+Evaluation Criteria:
+- Completeness of the implementation
+- Code quality, readability, and adherence to best practices
+- Proper use of HTML, CSS, and JavaScript
+- Responsive design and cross-browser compatibility
+- Performance optimization techniques
+- Error handling and user experience
+- Unit test coverage and test quality
+- Clear and concise documentation
+- Overall functionality and visual appeal
+
+
+themoviedb
+1. Paging/Infinite scrolling  done 
+2. Lazy Loading or Cache techniques done 
+3. Unit test cases done 
+4. Bonus points
+- Implement a dark mode toggle using CSS custom properties (variables). done
+- Use a CSS animation library like Animate.css or GreenSock to add subtle animations to UI elements. done 
+- Implement accessibility features, such as keyboard navigation and ARIA attributes, to ensure the application is usable by people with disabilities.
+- Use a state management library like Redux or MobX to manage the application's state.
+- Implement client-side routing using a library like React Router or Vue Router.
+
+
+
+Did paging from a third party service but we expect him to get all the data and do paging locally.

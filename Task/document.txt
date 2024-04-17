@@ -1,0 +1,44 @@
+Aishwarya Surendran
+Task: Create a responsive web application that displays a list of movies and allows users to search and filter movies by title, genre, and release year. The application should have a visually appealing design and provide a smooth user experience.
+
+
+->firstly will create a html page and inclue header , main and footer , which are kept empty and dedault 
+->then will get into Themoviedb site and get our Api to access miovies data
+-> After getting our Api, will get started with Javascript and get all data to display
+-> By using onlick events and event listeners ,if any filters are applied or event is clciked will perform operations according to that event
+-> then will move into css and Apply some filters so that, movie should be displayed side to side and apply some style to footer sections
+
+
+HTML 
+    in Html page, by default we will keep three sections 
+        one is for Header section to display - our page heading and there only we will keep filter options to search , filter by movie name or filter by filter by year
+        and Main section is to display movie details which we get from Api, intially we will display all movie details 
+        Finally, Footer section which we display some essentail details which we need
+
+Javascript
+    In Javascript, first we will get all the fileds and store it in one constant variable
+    and then from there , intially we will get all movies data with the help of fetch method through Api key by passing Access token and store it in one variable called MoviesData
+    After getting Data, will reflect back that data to options to display data in options(dropdown) and display all MoviesData intially 
+    from there after if any changes or onlick events were detected like filtering or giving input , then addEvent_Handler will be triggered and FilterMovies method will be called and details will be displayed according to the filter 
+    Incase , if we don't have the movie or movies details doesn't exsist then we will retun message "No Movies Found"
+    Even  if click on name of movie title , then onclick addEvent_Handler will be triggered and it will redirected to new webpage displaying movie details 
+
+css
+    from there we will be moving to css and applying some styles 
+    fixing the page boundaries , so that it will be quite accessable in even mobile , tab and desktop 
+    and applying some colours to footer and header 
+
+
+Features :
+    Responsive we page which gives responses in a single
+    dynamic we page , which changes according to input 
+    A Responsive Page whcih filters movies according to the input
+    Search Movies details by Movie_title
+    cross-browser compatibility all over devices
+    
+Api_Integration :
+    With the help of Themoviedb we will create an API along with that we will be having Access token
+    In Javascript we will Authenticate with the help of Access Token and get Movies Data with the help of Api key
+    with that part of Api_Integration we can access data seamlessly
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <style>
+        /* CSS styles remain unchanged */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 30%;
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+        h1, p {
+            text-align: center;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .detail {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="movie-details-container">
+        <img id="movie-poster" src="" alt="Movie Poster">
+        <h1 id="movie-title">Movie Title</h1>
+        <div class="details">
+            <div class="detail">
+                <strong>Release Date:</strong> <span id="release-date"></span>
+            </div>
+            <div class="detail">
+                <strong>Popularity:</strong> <span id="popularity"></span>
+            </div>
+            <div class="detail">
+                <strong>Average Rating:</strong> <span id="average-rating"></span>
+            </div>
+            <div class="detail">
+                <strong>Total Reviews:</strong> <span id="total-reviews"></span>
+            </div>
+            <div class="detail">
+                <strong>Overview:</strong> <span id="overview"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const queryParams = new URLSearchParams(window.location.search);
+            const movieId = queryParams.get('id');
+    
+            try {
+                // Retrieve moviesData from local storage
+                const moviesData = JSON.parse(localStorage.getItem('moviesData'));
+    
+                // Find the movie with the specified movieId
+                const movieData = moviesData.find(movie => movie.id == movieId);
+    
+                // Update movie details with data from local storage
+                document.getElementById('movie-poster').src = movieData.poster; // Set the poster URL from local storage
+                document.getElementById('movie-title').textContent = movieData.title;
+                document.getElementById('release-date').textContent = movieData.release_date;
+                document.getElementById('popularity').textContent = movieData.popularity;
+                document.getElementById('average-rating').textContent = movieData.vote_average;
+                document.getElementById('total-reviews').textContent = movieData.vote_count;
+                document.getElementById('overview').textContent = movieData.overview;
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+                document.getElementById('movie-details-container').innerHTML = '<p>Failed to load movie details.</p>';
+            }
+        });
+    </script>
+    
+</body>
+</html>
