@@ -5,13 +5,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const yearFilter = document.getElementById('yearFilter');
     const nextPageButton = document.getElementById('nextPageButton');
     const prevPageButton = document.getElementById('prevPageButton');
+    const loadingSpinner = document.getElementById('loadingSpinner'); // New: Reference to the loading spinner
+    const but = document.getElementById('but'); // New: Reference to the loading spinner
+
 
     let moviesData = []; // Array to hold movie data
     let currentPage = 1;
     const moviesPerPage = 20;
     const totalMovies = 200; // Total number of movies to fetch
     
+    function showLoadingSpinner() {
+        loadingSpinner.style.display = 'block'; // Show the loading spinner
+        but.style.display = 'none'; // Hide the main section
+        footerSection.style.display = 'none'; // Hide the footer section
+    }
+    
+    function hideLoadingSpinner() {
+        loadingSpinner.style.display = 'none'; // Hide the loading spinner
+        but.style.display = 'block'; // Show the main section
+        footerSection.style.display = 'block'; // Show the footer section
+    }
+    
     function fetchAndStoreMovies(page) {
+        showLoadingSpinner(); // Show loading spinner while fetching data
+        
         const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YjQwMjI5MThhMzQ5NmM1N2IzMjM4MzljMWJiNDg2ZSIsInN1YiI6IjY2MDUxNDllZDdmNDY1MDE3Y2RiYjU4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2jRm6WMHajunAM29SxOwGpvArK9YNb34JNMwqrJhlRU'; // Replace with your access token
         const apiUrl = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}&region=IN`;
     
@@ -51,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 localStorage.setItem('moviesData', JSON.stringify(moviesData)); // Store movies in local storage
                 loadMoviesFromLocalStorage(); // Load movies after fetching all data
+                hideLoadingSpinner(); // Hide the loading spinner once data is loaded
                 // CODE TO SAVE FILE IN JSON FORMAT
                 // const jsonStr = JSON.stringify(moviesData, null, 2);
 
@@ -62,10 +80,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 // saveAs(blob, outputFile);
             }
         })
-        .catch(error => console.error('Error fetching movie data:', error));
+        .catch(error => {
+            console.error('Error fetching movie data:', error);
+            hideLoadingSpinner(); // Hide the loading spinner if there's an error
+        });
     }
     
-
     fetchAndStoreMovies(1); // Start fetching movies from page 1
 
     function loadMoviesFromLocalStorage() {
@@ -106,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
         lazyLoadImages(); // Lazy load images after displaying movies
     }
     
-
     function displayMovies(movies) {
         // Clear the movies grid before populating it with new movie cards
         moviesGrid.innerHTML = '';
@@ -120,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const movieCard = document.createElement('div');
             movieCard.classList.add('movie-card', 'animate__animated', 'animate__fadeIn'); // Add animation classes
             movieCard.innerHTML = `
-                <img src="${movie.poster}" data-src="${movie.poster}" alt="${movie.title}">
+                <img src="${movie.poster}" data-src="${movie.poster}" alt="${movie.title}" class="movie-image">
                 <div class="movie-info">
                     <h2 class="movie-title">${movie.title}</h2>
                     <p>${movie.genre.join(', ')} (${movie.year})</p>
@@ -128,12 +147,12 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             const movieTitle = movieCard.querySelector('.movie-title');
             movieTitle.addEventListener('click', () => openMovieDetails(movie.id));
+            const movieimage = movieCard.querySelector('.movie-image');
+            movieimage.addEventListener('click', () => openMovieDetails(movie.id));
             moviesGrid.appendChild(movieCard);
         });
     }
     
-    
-
     function lazyLoadImages() {
         const lazyImages = document.querySelectorAll('img[data-src]');
         lazyImages.forEach(img => {
@@ -190,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     nextPageButton.addEventListener('click', () => {
         if (currentPage < Math.ceil(moviesData.length / moviesPerPage)) {
+            window.scrollTo(0, 0);
             currentPage++;
             filterAndDisplayMovies();
         }
@@ -197,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     prevPageButton.addEventListener('click', () => {
         if (currentPage > 1) {
+            window.scrollTo(0, 0);
             currentPage--;
             filterAndDisplayMovies();
         }

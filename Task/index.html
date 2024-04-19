@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <title>Shanmukha's Movie App</title>
 </head>
-<body>
+<body >
+
+    <div id="loadingSpinner" class="spinner"></div>
+
 <header>
     <h1>Movies App</h1>
     <input type="text" id="searchInput" placeholder="Search by title...">
@@ -21,10 +24,12 @@
 </header>
 
 <main id="moviesGrid"></main>
+<div id="but">
+<button id="prevPageButton"><u>Previous Page</u></button>
+<button id="nextPageButton"><u>Next Page</u></button><br><br>
+</div>
 
-<footer>
-    <button id="prevPageButton">Previous Page</button>
-    <button id="nextPageButton">Next Page</button>
+<footer id="footerSection">
     <p>&copy; Shanmukha's Movies App</p>
 </footer>
 </body>

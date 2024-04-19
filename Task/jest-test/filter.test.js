@@ -55,7 +55,6 @@ describe('filterMovies function', () => {
         genreFilter.value = 'Horror'; // Filtering by genre 'Horror' which is not in any genre
         yearFilter.value = '2022'; // Filtering by year '2022' which is not in any year
         const filteredMovies = filterMovies(moviesData, searchInput, genreFilter, yearFilter);
-        console.log(filteredMovies);
         expect(filteredMovies).toEqual([]);
     });
 });

@@ -72,20 +72,72 @@
                 // Find the movie with the specified movieId
                 const movieData = moviesData.find(movie => movie.id == movieId);
     
-                // Update movie details with data from local storage
-                document.getElementById('movie-poster').src = movieData.poster; // Set the poster URL from local storage
-                document.getElementById('movie-title').textContent = movieData.title;
-                document.getElementById('release-date').textContent = movieData.release_date;
-                document.getElementById('popularity').textContent = movieData.popularity;
-                document.getElementById('average-rating').textContent = movieData.vote_average;
-                document.getElementById('total-reviews').textContent = movieData.vote_count;
-                document.getElementById('overview').textContent = movieData.overview;
+                if (movieData) {
+                    // Update movie details with data from local storage
+                    document.getElementById('movie-poster').src = movieData.poster; // Set the poster URL from local storage
+                    document.getElementById('movie-title').textContent = movieData.title;
+                    document.getElementById('release-date').textContent = movieData.release_date;
+                    document.getElementById('popularity').textContent = movieData.popularity;
+                    document.getElementById('average-rating').textContent = movieData.vote_average;
+                    document.getElementById('total-reviews').textContent = movieData.vote_count;
+                    document.getElementById('overview').textContent = movieData.overview;
+                } else {
+                    throw new Error('Movie data not found in local storage');
+                }
             } catch (error) {
-                console.error('Error fetching movie details:', error);
-                document.getElementById('movie-details-container').innerHTML = '<p>Failed to load movie details.</p>';
+                console.error('Error fetching movie details from local storage:', error);
+    
+                try {
+                    // If fetching from local storage fails, try fetching from URL params
+                    // You may need to adjust this logic depending on your URL structure
+                    // For simplicity, I'm assuming the movieId is directly in the URL
+                    // You might need to parse the URL differently if it's more complex
+                    if (movieId) {
+                        // Fetch movie details using the movieId from the URL params
+                        fetchMovieDetailsFromAPI(movieId);
+                    } else {
+                        throw new Error('Movie ID not found in URL params');
+                    }
+                } catch (fetchError) {
+                    console.error('Error fetching movie details from URL params:', fetchError);
+                    document.getElementById('movie-details-container').innerHTML = '<p>Failed to load movie details.</p>';
+                }
             }
         });
+    
+        function fetchMovieDetailsFromAPI(movieId) {
+            const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YjQwMjI5MThhMzQ5NmM1N2IzMjM4MzljMWJiNDg2ZSIsInN1YiI6IjY2MDUxNDllZDdmNDY1MDE3Y2RiYjU4MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2jRm6WMHajunAM29SxOwGpvArK9YNb34JNMwqrJhlRU'; // Replace with your access token
+            const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
+    
+            fetch(apiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update movie details with fetched data
+                document.getElementById('movie-poster').src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+                document.getElementById('movie-title').textContent = data.title;
+                document.getElementById('release-date').textContent = data.release_date;
+                document.getElementById('popularity').textContent = data.popularity;
+                document.getElementById('average-rating').textContent = data.vote_average;
+                document.getElementById('total-reviews').textContent = data.vote_count;
+                document.getElementById('overview').textContent = data.overview;
+            })
+            .catch(error => {
+                console.error('Error fetching movie details from API:', error);
+                document.getElementById('movie-details-container').innerHTML = '<p>Failed to load movie details.</p>';
+            });
+        }
     </script>
+    
     
 </body>
 </html>
